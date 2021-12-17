@@ -8,7 +8,7 @@ var size = 20
 var yGridSize = canvas.height/size;
 var xGridSize = canvas.width/(size*2);
 var board;
-
+var simulateInterval;
 
 //board[y][x]; larger y = down; larger x = across.
 function init(){
@@ -56,7 +56,11 @@ function simulateStep(){
 }
 
 function continualSimulate(){
-    var outer = setInterval(simulateStep,1000);
+    simulateInterval = setInterval(simulateStep,1000);
+}
+
+function pauseSim(){
+    clearInterval(simulateInterval);
 }
 
 function render(){
