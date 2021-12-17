@@ -9,7 +9,19 @@ var yGridSize = canvas.height/size;
 var xGridSize = canvas.width/(size*2);
 var board;
 var simulateInterval;
+var slider = document.getElementById("myRange");
+var sliderValue = document.getElementById("demo");
+var simulating = false;
+sliderValue.innerHTML = slider.value;
 
+slider.oninput = function() {
+    sliderValue.innerHTML = this.value;
+  if(simulating){
+    pauseSim();
+    continualSimulate();
+  }
+}
+// Update the current slider value (each time you drag the slider handle)
 //board[y][x]; larger y = down; larger x = across.
 function init(){
 
@@ -56,10 +68,14 @@ function simulateStep(){
 }
 
 function continualSimulate(){
-    simulateInterval = setInterval(simulateStep,1000);
+    if(simulating==false){
+        simulating = true;
+        simulateInterval = setInterval(simulateStep,sliderValue.innerHTML);
+    }
 }
 
 function pauseSim(){
+    simulating= false;
     clearInterval(simulateInterval);
 }
 
